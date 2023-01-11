@@ -3,6 +3,7 @@ import extend from "extend";
 import platform from "platform";
 // import uuidv1 from 'uuid/dist/esm-browser/v1';
 import { v1 as uuidv1 } from "uuid";
+import Echo from '../util/log';
 
 /**
  * @description: 获取Event 参数
@@ -170,9 +171,9 @@ const getAppInfo = function () {
  * @return {*}
  */
 const getPerformanceInfo = function () {
-    let data = {};
-    data.performance = window.performance.timing;
-    return data;
+  let data = {};
+  data.performance = window.performance.timing;
+  return data;
 };
 
 const getBrowserLang = function () {
@@ -245,7 +246,13 @@ const createHistoryEvent = function (type) {
 };
 
 const log = function () {
-  console.log("%c 埋点SDK加载成功", " text-shadow: 0 1px 0 #ccc,0 2px 0 #c9c9c9,0 3px 0 #bbb,0 4px 0 #b9b9b9,0 5px 0 #aaa,0 6px 1px rgba(0,0,0,.1),0 0 5px rgba(0,0,0,.1),0 1px 3px rgba(0,0,0,.3),0 3px 5px rgba(0,0,0,.2),0 5px 10px rgba(0,0,0,.25),0 10px 10px rgba(0,0,0,.2),0 20px 20px rgba(0,0,0,.15);font-size:5em");
+  let echo = Echo();
+  echo.group(echo.asWarning("埋点注入成功"));
+  echo.log("Make sure the key is correct");
+  echo.log("Ensure that data is whitelisted", echo.asAlert("Important!"));
+  echo.log("Track");
+  echo.log("maintain", echo.asWarning("Strong"));
+  echo.groupEnd();
 }
 
 export {

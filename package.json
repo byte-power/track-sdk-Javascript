@@ -1,13 +1,17 @@
 {
   "name": "ihandy-sdk-javascript",
-  "version": "1.0.13",
+  "version": "1.0.15",
   "description": "official sensorsdata javascript sdk",
   "main": "lib/index.js",
   "directories": {
     "lib": "lib"
   },
-  "keywords": [ "track"],
-  "files": ["lib"],
+  "keywords": [
+    "track"
+  ],
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rollup -c --bundleConfigAsCjs",

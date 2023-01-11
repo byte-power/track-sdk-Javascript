@@ -26,7 +26,8 @@ const defaultOptions = {
     enableHashTracker: false, // 是否开启页面hash变化自动上报，适合单页面应用的hash路由
     enableClosedTracker: false, // 是否开启页面关闭自动上报
     apikey: '',
-    requestUrl: 'http://localhost:3000' // 埋点请求后端接口
+    requestUrl: 'http://localhost:3000', // 埋点请求后端接口
+    reportWhiteList: [], // 数据上报白名单
 };
 
 const MouseEventList = ['click', 'dblclick', 'contextmenu', 'mousedown', 'mouseup', 'mouseenter', 'mouseout', 'mouseover'];
@@ -39,7 +40,20 @@ class Tracker {
         this._isInstall = false;
         this._options = {};
         this.timeStr = null;
-        this._init(options)
+        this.reportWhiteListVaild() && this._init(options)
+    }
+
+    /**
+     * @description: 初始化白名单验证
+     * @return {*}
+     */
+    reportWhiteListVaild() {
+        if (window.location) {
+            let { hostname } = window.location;
+            return this._options.reportWhiteList.includes(hostname);
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -203,7 +217,6 @@ class Tracker {
         };
         const { apikey, requestUrl } = this._options
         const sendData = extend(true, {}, defaultData, data);
-        console.log('sendData', sendData);
         reportTracker(requestUrl, sendData, { apikey: apikey });
     }
 
