@@ -50,7 +50,8 @@ class Tracker {
     reportWhiteListVaild(options) {
         if (window.location) {
             let { hostname } = window.location;
-            return options.reportWhiteList.includes(hostname);
+            let { reportWhiteList } = options;
+            return Array.isArray(reportWhiteList) && reportWhiteList.includes(hostname);
         } else {
             return false;
         }
