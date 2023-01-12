@@ -40,17 +40,17 @@ class Tracker {
         this._isInstall = false;
         this._options = {};
         this.timeStr = null;
-        this.reportWhiteListVaild() && this._init(options)
+        this.reportWhiteListVaild(options) && this._init(options)
     }
 
     /**
      * @description: 初始化白名单验证
      * @return {*}
      */
-    reportWhiteListVaild() {
+    reportWhiteListVaild(options) {
         if (window.location) {
             let { hostname } = window.location;
-            return this._options.reportWhiteList.includes(hostname);
+            return options.reportWhiteList.includes(hostname);
         } else {
             return false;
         }
