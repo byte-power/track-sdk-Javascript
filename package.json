@@ -1,6 +1,6 @@
 {
   "name": "ihandy-sdk-javascript",
-  "version": "1.0.17",
+  "version": "1.1.04",
   "description": "official sensorsdata javascript sdk",
   "main": "lib/index.js",
   "directories": {

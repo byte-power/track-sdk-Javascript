@@ -28,6 +28,7 @@ const defaultOptions = {
     apikey: '',
     requestUrl: 'http://localhost:3000', // 埋点请求后端接口
     reportWhiteList: [], // 数据上报白名单
+    reportBlackPathNamelist: [] //数据上报黑名单 By pathName
 };
 
 const MouseEventList = ['click', 'dblclick', 'contextmenu', 'mousedown', 'mouseup', 'mouseenter', 'mouseout', 'mouseover'];
@@ -40,7 +41,7 @@ class Tracker {
         this._isInstall = false;
         this._options = {};
         this.timeStr = null;
-        this.reportWhiteListVaild(options) && this._init(options)
+        this.reportWhiteListVaild(options) && !this.reportBlackaPthNamelistVaild(options) && this._init(options)
     }
 
     /**
@@ -52,6 +53,21 @@ class Tracker {
             let { hostname } = window.location;
             let { reportWhiteList } = options;
             return Array.isArray(reportWhiteList) && reportWhiteList.includes(hostname);
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * @description: 验证是否是黑名单pathName
+     * @param {*} options
+     * @return {*}
+     */
+    reportBlackaPthNamelistVaild(options) {
+        if (window.location) {
+            let { pathname } = window.location;
+            let { reportBlackPathNamelist } = options;
+            return Array.isArray(reportWhiteList) && reportBlackPathNamelist.includes(pathname);
         } else {
             return false;
         }
@@ -142,7 +158,7 @@ class Tracker {
                     return;
                 }
                 // 计算页面进入时间
-                if(eventName === 'load') {
+                if (eventName === 'load') {
                     that.timeStr = new Date().getTime();
                 }
                 if (MouseEventList.indexOf(eventName) > -1) {
